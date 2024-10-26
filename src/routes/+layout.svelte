@@ -1,6 +1,9 @@
+
 <script>
 	import '../app.css';
-	let { children } = $props();
-</script>
 
-{@render children()}
+	import Navbar from '../components/Navbar.svelte';
+	import Footer from '../components/Footer.svelte';
+  </script>
+
+    <slot />
