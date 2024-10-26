@@ -1,10 +1,10 @@
 """Module for user management usingMongoDB."""
-from datetime import date
+from datetime import datetime
 import pymongo
 from pymongo import MongoClient
 from bson import ObjectId
 from typing import Optional, Dict, List
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 
 class MongoDB:
     def __init__(self, connection_string: str, db_name: str):
@@ -38,7 +38,7 @@ class User():
     def get_by_id(cls, db: MongoDB, user_id: str) -> Optional['User']:
         """Get user by ID."""
         try:
-            user_data = db.db.users.find_one({'_id': ObjectId(user_id)})
+            user_data = db.db.users.find_one({'id': ObjectId(user_id)})
             if not user_data:
                 return None
 
@@ -107,7 +107,7 @@ class BasicUser(User):
 
     @classmethod
     def create(cls, db: MongoDB, email: str, password: str, first_name: str,
-               last_name: str, date_of_birth: date, city: str) -> Optional['BasicUser']:
+               last_name: str, date_of_birth: datetime, city: str) -> Optional['BasicUser']:
         """Create a new basic user."""
         try:
             if db.db.users.find_one({'email': email}):
@@ -154,7 +154,7 @@ class Charity(User):
                 'user_type': 'charity',
                 'name': name,
                 'verified': verified,
-                'created_at': datetime.utcnow()
+                'created_at': datetime.now(datetime.timezone.utc)
             }
 
             result = db.db.users.insert_one(user_data)
@@ -174,7 +174,7 @@ class Charity(User):
                 'image': image,
                 'event_details': event_details,
                 'post_type': 'charity_post',
-                'created_at': datetime.utcnow()
+                'created_at': datetime.now(datetime.timezone.utc)
             }
             result = self.db.db.posts.insert_one(post_data)
             return bool(result.inserted_id)
