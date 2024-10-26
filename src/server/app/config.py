@@ -1,19 +1,45 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    DEBUG = os.getenv('FLASK_DEBUG', True)
-    MONGO_URI = os.getenv('MONGO_URI')
+    MONGODB_URI = os.getenv('MONGODB_URI')
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+    DATABASE_NAME = os.getenv('DATABASE_NAME', 'disaster_relief_db')
 
-    # Validate required environment variables
-    @classmethod
-    def validate_config(cls):
-        if not cls.MONGO_URI:
-            raise ValueError("MONGO_URI environment variable is not set")
-        if not cls.SECRET_KEY:
-            raise ValueError("SECRET_KEY environment variable is not set")
+
+# app/__init__.py
+from flask import Flask
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+from flask_socketio import SocketIO
+from entity.user import MongoDB
+
+# Initialize extensions
+jwt = JWTManager()
+socketio = SocketIO()
+
+# Create MongoDB instance
+mongo = MongoDB(Config.MONGODB_URI, Config.DATABASE_NAME)
+
+
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+
+    # Initialize extensions
+    CORS(app)
+    jwt.init_app(app)
+    socketio.init_app(app)
+
+    # Register blueprints
+    from ..app.routes import auth, posts, donations, announcements, ml_analysis
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(posts.bp)
+    app.register_blueprint(donations.bp)
+    app.register_blueprint(announcements.bp)
+    app.register_blueprint(ml_analysis.bp)
+
+    return app

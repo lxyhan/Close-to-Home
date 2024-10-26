@@ -1,11 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from config import Config
-# app/__init__.py
-from flask import Flask
-from flask_cors import CORS
 from flask_jwt_extended import JWTManager
-from flask_socketio import SocketIO
+from flask import SocketIO
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -19,6 +15,7 @@ socketio = SocketIO()
 # MongoDB connection
 mongo_client = MongoClient(os.getenv('MONGODB_URI'))
 db = mongo_client.disaster_relief_db
+mongo = None
 
 
 def create_app():
@@ -34,7 +31,7 @@ def create_app():
     socketio.init_app(app)
 
     # Register blueprints
-    from app.routes import auth, posts, donations, announcements, ml_analysis
+    from ..app.routes import auth, posts, donations, announcements, ml_analysis
     app.register_blueprint(auth.bp)
     app.register_blueprint(posts.bp)
     app.register_blueprint(donations.bp)
