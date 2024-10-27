@@ -11,7 +11,7 @@
   function handleDonate() {
     alert(`Thank you for considering a donation for ${post.title}. Redirecting...`);
     // Example redirection to a donation page
-    window.location.href = `/donate?post=${post.slug}`;
+    window.location.href = `https://buy.stripe.com/test_7sI8z4fig2oN3Pa6oo`;
   }
 </script>
 

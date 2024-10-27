@@ -20,134 +20,177 @@
 
   let posts = [
   {
-    title: 'Severe Flooding in New York City',
-    slug: 'flooding-in-new-york',
+    title: 'Flooding in New York Traps Residents',
+    slug: 'flooding-in-nyc',
     content:
-      'Unprecedented flooding in Lower Manhattan has led to the evacuation of several neighborhoods. The subway system is halted, and rescue operations are underway. Please avoid the area and call 311 for non-emergency inquiries.',
-    postImage: '/banner4.jpg',
+      'Heavy rains have caused severe flooding across several neighborhoods in Brooklyn. Many families are stuck in their homes, and the water levels are rising. We need boats and clean drinking water.',
+    postImage: '/flood.jpg',
     profileImage: '/pfp1.png',
-    name: 'John Doe',
-    location: 'New York, NY, USA',
+    name: 'John Hancock',
+    location: 'Brooklyn, NY, USA',
     category: 'Flooding',
-    reportedTime: '2 hours ago',
-    status: 'Ongoing',
-    emergencyContacts: ['311', 'NYC OEM'],
-    lat: 40.7128, // New York City latitude
-    lng: -74.0060, // New York City longitude
-  },
-  {
-    title: 'California Wildfire Spreading Rapidly',
-    slug: 'california-wildfire-spreading-rapidly',
-    content:
-      'A wildfire near San Bernardino has grown to over 10,000 acres. Evacuation orders are in effect for surrounding areas. Air quality is poor across the region, and residents are urged to stay indoors.',
-    postImage: '/banner1.jpg',
-    profileImage: '/pfp2.png',
-    name: 'Jane Smith',
-    location: 'San Bernardino, CA, USA',
-    category: 'Wildfire',
-    reportedTime: '1 hour ago',
-    status: 'Evacuations Ongoing',
-    emergencyContacts: ['911', 'Cal Fire'],
-    lat: 34.1083, // San Bernardino latitude
-    lng: -117.2898, // San Bernardino longitude
-  },
-  {
-    title: 'Hurricane Laura Makes Landfall',
-    slug: 'hurricane-laura-makes-landfall',
-    content:
-      'Hurricane Laura has hit Louisiana as a Category 4 storm, with winds exceeding 150 mph. Power outages have been reported in Lake Charles and nearby cities. Stay sheltered and avoid all unnecessary travel.',
-    postImage: '/banner4.jpg',
-    profileImage: '/pfp3.png',
-    name: 'Emily Johnson',
-    location: 'Lake Charles, LA, USA',
-    category: 'Hurricane',
     reportedTime: '3 hours ago',
-    status: 'Critical',
-    emergencyContacts: ['911', 'FEMA'],
-    lat: 30.2266, // Lake Charles latitude
-    lng: -93.2174, // Lake Charles longitude
+    status: 'Rescue Needed',
+    emergencyContacts: ['311', 'NYC OEM'],
+    donationRequests: ['Water', 'Boats', 'Non-perishable food'],
+    lat: 40.6782,
+    lng: -73.9442,
   },
   {
-    title: 'Earthquake Hits Southern Japan',
-    slug: 'earthquake-hits-southern-japan',
+    title: 'Earthquake Aftermath in Turkey',
+    slug: 'earthquake-in-turkey',
     content:
-      'A magnitude 6.8 earthquake shook the southern islands of Japan. Aftershocks continue to be felt in the region, and tsunami warnings have been issued. No major casualties reported yet, but infrastructure damage is significant.',
-    postImage: '/banner3.jpg',
-    profileImage: '/pfp4.png',
-    name: 'Hideo Takahashi',
-    location: 'Kyushu, Japan',
-    category: 'Earthquake',
-    reportedTime: '30 minutes ago',
-    status: 'Monitoring Aftershocks',
-    emergencyContacts: ['119', 'Japan Meteorological Agency'],
-    lat: 32.7503, // Kyushu latitude
-    lng: 130.7417, // Kyushu longitude
-  },
-  {
-    title: 'Tornado in Oklahoma Destroys Homes',
-    slug: 'tornado-in-oklahoma-destroys-homes',
-    content:
-      'A large tornado has touched down in Moore, Oklahoma, destroying several homes and vehicles. Emergency responders are on the scene, and residents are being advised to take shelter immediately.',
-    postImage: '/banner4.jpg',
-    profileImage: '/pfp3.png',
-    name: 'Mike Andrews',
-    location: 'Moore, OK, USA',
-    category: 'Tornado',
-    reportedTime: '45 minutes ago',
-    status: 'First Responders on Site',
-    emergencyContacts: ['911', 'American Red Cross'],
-    lat: 35.3395, // Moore latitude
-    lng: -97.4867, // Moore longitude
-  },
-  {
-    title: 'Massive Landslide in Northern India',
-    slug: 'massive-landslide-in-northern-india',
-    content:
-      'A major landslide in the Himalayan region has blocked roads and caused multiple injuries. Rescue teams are struggling to reach remote villages affected by the landslide. Helicopters have been deployed for rescue.',
-    postImage: '/banner3.jpg',
+      'A devastating 7.2-magnitude earthquake struck eastern Turkey, destroying homes and schools. Survivors urgently need tents, blankets, and medical kits.',
+    postImage: '/earthquake.jpeg',
     profileImage: '/pfp2.png',
-    name: 'Ravi Kumar',
-    location: 'Himachal Pradesh, India',
-    category: 'Landslide',
-    reportedTime: '1 hour ago',
-    status: 'Rescue Operations Underway',
-    emergencyContacts: ['108', 'Disaster Management Authority'],
-    lat: 31.1048, // Himachal Pradesh latitude
-    lng: 77.1734, // Himachal Pradesh longitude
+    name: 'Ali Yilmaz',
+    location: 'Van, Turkey',
+    category: 'Earthquake',
+    reportedTime: '5 hours ago',
+    status: 'Critical',
+    emergencyContacts: ['112', 'AFAD'],
+    donationRequests: ['Tents', 'Medical kits', 'Blankets'],
+    lat: 38.5012,
+    lng: 43.3790,
   },
   {
-    title: 'Heatwave in Spain Leads to Health Alerts',
-    slug: 'heatwave-in-spain-leads-to-health-alerts',
+    title: 'Typhoon Haikui Wrecks Coastal Villages',
+    slug: 'typhoon-haikui-in-philippines',
     content:
-      'Spain is experiencing an extreme heatwave, with temperatures exceeding 45°C (113°F). Health authorities have issued alerts, urging residents to stay hydrated and avoid outdoor activities during peak hours.',
+      'Typhoon Haikui has destroyed fishing villages along the coast, leaving many families homeless. We urgently need clothes, shelter, and food supplies.',
+    postImage: '/banner5.jpg',
+    profileImage: '/pfp3.png',
+    name: 'Lina Santos',
+    location: 'Palawan, Philippines',
+    category: 'Typhoon',
+    reportedTime: '2 hours ago',
+    status: 'Displacement Ongoing',
+    emergencyContacts: ['911', 'Philippine Red Cross'],
+    donationRequests: ['Clothing', 'Food', 'Temporary shelters'],
+    lat: 9.7392,
+    lng: 118.7353,
+  },
+  {
+    title: 'Wildfire Evacuees Need Supplies',
+    slug: 'wildfire-in-oregon',
+    content:
+      'Evacuees from the massive wildfire in Oregon are now in shelters, running out of essential supplies. We need hygiene kits and pet food for displaced animals.',
+    postImage: '/banner1.jpg',
+    profileImage: '/pfp4.png',
+    name: 'Sarah Thompson',
+    location: 'Bend, OR, USA',
+    category: 'Wildfire',
+    reportedTime: '6 hours ago',
+    status: 'Shelters Overcrowded',
+    emergencyContacts: ['911', 'Oregon Fire Department'],
+    donationRequests: ['Hygiene kits', 'Baby formula', 'Pet food'],
+    lat: 44.0582,
+    lng: -121.3153,
+  },
+  {
+    title: 'Tornado in Texas Causes Power Outage',
+    slug: 'tornado-in-texas',
+    content:
+      'A powerful tornado struck the outskirts of Dallas, leaving thousands without power. Families need generators and food supplies.',
     postImage: '/banner2.jpg',
     profileImage: '/pfp1.png',
-    name: 'Carlos Martinez',
-    location: 'Seville, Spain',
-    category: 'Heatwave',
-    reportedTime: '2 days ago',
-    status: 'Health Alert Issued',
-    emergencyContacts: ['112', 'Spanish Red Cross'],
-    lat: 37.3891, // Seville latitude
-    lng: -5.9845, // Seville longitude
+    name: 'Mark Wilson',
+    location: 'Dallas, TX, USA',
+    category: 'Tornado',
+    reportedTime: '1 hour ago',
+    status: 'Ongoing Rescue',
+    emergencyContacts: ['911', 'Texas Emergency Services'],
+    donationRequests: ['Generators', 'Food packs', 'Flashlights'],
+    lat: 32.7767,
+    lng: -96.7970,
   },
   {
-    title: 'Flash Floods in the Philippines',
-    slug: 'flash-floods-in-the-philippines',
+    title: 'Hurricane Ian Floods Florida Towns',
+    slug: 'hurricane-ian-floods-florida',
     content:
-      'Heavy rainfall has caused flash floods across Manila, submerging roads and disrupting transportation. Evacuation centers are being set up, and residents are advised to move to higher ground.',
-    postImage: '/banner1.jpg',
+      'Hurricane Ian has flooded streets and homes across Fort Myers. Many people are stranded, and shelters are running out of supplies.',
+    postImage: '/banner6.jpg',
     profileImage: '/pfp2.png',
-    name: 'Alyssa Reyes',
-    location: 'Manila, Philippines',
+    name: 'Emma Brown',
+    location: 'Fort Myers, FL, USA',
+    category: 'Hurricane',
+    reportedTime: '8 hours ago',
+    status: 'Emergency',
+    emergencyContacts: ['911', 'FEMA'],
+    donationRequests: ['Life vests', 'Medicines', 'Blankets'],
+    lat: 26.6406,
+    lng: -81.8723,
+  },
+  {
+    title: 'Flash Floods in Malaysia Submerge Towns',
+    slug: 'flash-flood-in-malaysia',
+    content:
+      'Heavy rains have caused flash floods in Johor. Residents are stranded without food and clean water. We need help urgently.',
+    postImage: '/banner7.jpg',
+    profileImage: '/pfp3.png',
+    name: 'Muhammad Iqbal',
+    location: 'Johor, Malaysia',
     category: 'Flash Flood',
-    reportedTime: '4 hours ago',
-    status: 'Evacuations in Progress',
-    emergencyContacts: ['911', 'Philippine Red Cross'],
-    lat: 14.5995, // Manila latitude
-    lng: 120.9842, // Manila longitude
+    reportedTime: '2 hours ago',
+    status: 'Rescue Operations Ongoing',
+    emergencyContacts: ['999', 'Malaysia Civil Defence Force'],
+    donationRequests: ['Clean water', 'Food supplies', 'Dry clothes'],
+    lat: 1.4927,
+    lng: 103.7414,
+  },
+  {
+    title: 'Volcanic Eruption in Indonesia',
+    slug: 'volcano-in-indonesia',
+    content:
+      'Mount Sinabung has erupted, covering villages in ash. Thousands have evacuated, but we need respirators, food, and shelter urgently.',
+    postImage: '/banner3.jpg',
+    profileImage: '/pfp4.png',
+    name: 'Putri Ananda',
+    location: 'Karo, Indonesia',
+    category: 'Volcano Eruption',
+    reportedTime: '1 hour ago',
+    status: 'Critical',
+    emergencyContacts: ['112', 'Indonesian Red Cross'],
+    donationRequests: ['Respirators', 'Food', 'Shelter tents'],
+    lat: 3.1741,
+    lng: 98.3923,
+  },
+  {
+    title: 'Blizzard in Canada Traps Travelers',
+    slug: 'blizzard-in-canada',
+    content:
+      'A sudden blizzard in Saskatchewan has stranded travelers on highways. Many are without fuel and supplies, seeking assistance.',
+    postImage: '/blizzard.jpeg',
+    profileImage: '/pfp1.png',
+    name: 'James White',
+    location: 'Saskatchewan, Canada',
+    category: 'Blizzard',
+    reportedTime: '30 minutes ago',
+    status: 'Emergency Services Dispatched',
+    emergencyContacts: ['911', 'Canadian Red Cross'],
+    donationRequests: ['Fuel', 'Warm clothing', 'First aid kits'],
+    lat: 52.9399,
+    lng: -106.4509,
+  },
+  {
+    title: 'Monsoon Floods Worsen in Bangladesh',
+    slug: 'monsoon-floods-in-bangladesh',
+    content:
+      'Monsoon rains have caused rivers to overflow, flooding villages in Sylhet. We are trapped and need help with food, medicine, and rescue boats.',
+    postImage: '/banner6.jpg',
+    profileImage: '/pfp2.png',
+    name: 'Amina Rahman',
+    location: 'Sylhet, Bangladesh',
+    category: 'Monsoon Flood',
+    reportedTime: '12 hours ago',
+    status: 'Rescue Needed',
+    emergencyContacts: ['999', 'Bangladesh Red Crescent'],
+    donationRequests: ['Boats', 'Medicine', 'Food'],
+    lat: 24.8949,
+    lng: 91.8687,
   }
 ];
+
 
   let filteredPosts = [...posts]; // Default: show all posts
   let selectedPost = ''; // Track selected post
@@ -228,10 +271,10 @@
           <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
             <div class="flex h-16 items-center space-x-4 px-4">
                 <img class="h-8 w-auto" 
-                     src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" 
+                     src="/logo.png" 
                      alt="ClimateWatch Logo" />
               
-                <h1 class="text-2xl font-bold text-gray-900">ClimateWatch</h1>
+                <h1 class="text-2xl font-bold text-gray-900">Close to Home</h1>
             </div>              
             <nav class="flex flex-1 flex-col">
               <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -303,9 +346,13 @@
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
 
-        <div class="flex h-16 items-center space-x-4 px-4 mt-3">
-            <svg id="logo-86" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="ccustom" fill-rule="evenodd" clip-rule="evenodd" d="M25.5557 11.6853C23.9112 10.5865 21.9778 10 20 10V0C23.9556 0 27.8224 1.17298 31.1114 3.37061C34.4004 5.56823 36.9638 8.69181 38.4776 12.3463C39.9913 16.0008 40.3874 20.0222 39.6157 23.9018C38.844 27.7814 36.9392 31.3451 34.1421 34.1421C31.3451 36.9392 27.7814 38.844 23.9018 39.6157C20.0222 40.3874 16.0008 39.9913 12.3463 38.4776C8.69181 36.9638 5.56823 34.4004 3.37061 31.1114C1.17298 27.8224 0 23.9556 0 20H10C10 21.9778 10.5865 23.9112 11.6853 25.5557C12.7841 27.2002 14.3459 28.4819 16.1732 29.2388C18.0004 29.9957 20.0111 30.1937 21.9509 29.8078C23.8907 29.422 25.6725 28.4696 27.0711 27.0711C28.4696 25.6725 29.422 23.8907 29.8078 21.9509C30.1937 20.0111 29.9957 18.0004 29.2388 16.1732C28.4819 14.3459 27.2002 12.7841 25.5557 11.6853Z" fill="#007DFC"></path><path class="ccustom" fill-rule="evenodd" clip-rule="evenodd" d="M10 5.16562e-07C10 1.31322 9.74135 2.61358 9.2388 3.82683C8.73625 5.04009 7.99966 6.14248 7.07107 7.07107C6.14249 7.99966 5.0401 8.73625 3.82684 9.2388C2.61358 9.74134 1.31322 10 5.4439e-06 10L5.00679e-06 20C2.62644 20 5.22716 19.4827 7.65368 18.4776C10.0802 17.4725 12.285 15.9993 14.1421 14.1421C15.9993 12.285 17.4725 10.0802 18.4776 7.65367C19.4827 5.22715 20 2.62643 20 -3.81469e-06L10 5.16562e-07Z" fill="#007DFC"></path></svg>
-            <h1 class="text-2xl font-bold text-gray-900">ClimateWatch</h1>
+        <div class="flex h-16 items-center space-x-1 px-0 mt-3">
+          <img 
+            src="/logo.png" 
+            alt="App Logo" 
+            class="h-12 w-12 object-cover rounded-full"
+          />
+            <h1 class="text-2xl font-bold text-gray-900">Close to Home</h1>
         </div>
 
         <nav class="flex flex-1 flex-col">
@@ -381,7 +428,7 @@
                         currentState = 'stats'; 
                       }}
                     >
-                      <svg class="h-6 w-6 shrink-0 {currentState === 'stats' ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'}" 
+                      <svg class="h-6 w-6 shrink-0 {currentState === 'stats' ? 'text-indigo-600' : 'text-gray-700 group-hover:text-indigo-600'}" 
                         fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
@@ -398,27 +445,28 @@
                 <li>
                   <a
                     href="#"
-                    class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                    class="group flex gap-x-3 mb-2 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
                     on:click|preventDefault={openModal}
                   >
                     <span
-                      class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600"
+                      class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-white text-[0.625rem] font-medium text-gray-700 group-hover:border-indigo-600 group-hover:text-indigo-600"
                     >
                       +
                     </span>
                     <button>Add a Post</button>
                   </a>
                 </li>
-                <div class="flex justify-center mx-2 mt-3">
+                <div class="flex justify-center mx-2 mt-">
+                  <!-- Donation Button -->
                   <button 
                     type="button" 
+                    on:click={() => window.location.href="https://dashboard.stripe.com/"} 
                     class="block w-full max-w-xs rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     <div class="flex flex-col items-center space-y-2">
                       <img 
                         src="/m_logo.png" 
                         alt="Donation Icon" 
-
                       />
                       <span class="block text-sm font-semibold text-gray-900">
                         Create a donation endpoint
@@ -432,21 +480,36 @@
                 
               </ul>
             </li>
+            <script>
+              let username = "John Doe"; // Example username
+            
+              function logout() {
+                // Add your logout logic here
+                console.log("User logged out");
+                // For example: Clear auth tokens, redirect to login page, etc.
+              }
+            </script>
+            
             <li class="-mx-6 mt-auto">
-                <button 
-                  class="flex w-full items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
-                  on:click={() => logout()}
-                >
+              <div class="flex w-full items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50">
                 <img 
-                class="h-8 w-8 rounded-full bg-gray-50 object-cover" 
-                src="/IMG_9453.jpg" 
-                alt={username}
-              />
-              
-                  <span class="sr-only">Your profile</span>
-                  <span aria-hidden="true">{username}</span>
+                  class="h-8 w-8 rounded-full bg-gray-50 object-cover" 
+                  src="/IMG_9453.jpg" 
+                  alt={username}
+                />
+            
+                <span aria-hidden="true">{username}</span>
+            
+                <!-- Logout Button -->
+                <button 
+                  class="ml-auto px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-md"
+                  on:click={logout}
+                >
+                  Logout
                 </button>
-              </li>
+              </div>
+            </li>
+            
               
           </ul>
         </nav>
