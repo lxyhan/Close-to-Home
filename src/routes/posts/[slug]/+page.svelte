@@ -33,7 +33,7 @@
 
       <!-- Post Details -->
       <div class="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
-        <div class="mt-4 flex justify-center space-x-4">
+        <div class="mt-4 flex justify-start space-x-4">
           <button 
             on:click={goBackToDashboard} 
             class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-900 hover:bg-gray-100 focus:z-10"
