@@ -1,9 +1,13 @@
 <script>
+	import AddPostModal from "../../components/AddPostModal.svelte";
+	import Heatmap from "../../components/Heatmap.svelte";
   import MapboxMap from "../../components/MapboxMap.svelte";
 	import Statistics from "../../components/Statistics.svelte";
+	import StreetLevelMap from "../../components/StreetLevelMap.svelte";
   import Userlist from "../../components/Userlist.svelte";
   
   let currentState = 'map'; // Track if statistics modal is active
+  let openAddPostModal = false;
 
   export let username = 'James Han';
 
@@ -14,7 +18,7 @@
 
   let accessToken = 'pk.eyJ1IjoiaGFubHl1MjAwNSIsImEiOiJjbTJxano5dWkxNXo0MmtxODM5MmxwN3lwIn0.2bgd33u52q49s2QcdaMVIg'; // Replace with your token
 
-  const posts = [
+  let posts = [
   {
     title: 'Severe Flooding in New York City',
     slug: 'flooding-in-new-york',
@@ -145,13 +149,24 @@
   }
 ];
 
-
   let filteredPosts = [...posts]; // Default: show all posts
   let selectedPost = ''; // Track selected post
 
   function handleFilteredPosts(posts) {
     filteredPosts = posts; // Update user list
     selectedPost = posts.length ? posts[0].title : ''; // Update selected post title
+  }
+
+  function openModal() {
+    openAddPostModal = true;
+  }
+
+  function closeModal() {
+    openAddPostModal = false;
+  }
+
+  function savePost(newPost) {
+    posts = [...posts, newPost]; // Add the new post to the list
   }
 
 </script>
@@ -225,25 +240,19 @@
                     <li>
                       <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
                       <a href="#" class="group flex gap-x-3 rounded-md bg-gray-50 p-2 text-sm font-semibold leading-6 text-indigo-600">
-                        <svg class="h-6 w-6 shrink-0 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                        </svg>
+
                         Dashboard
                       </a>
                     </li>
                     <li>
                       <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                        </svg>
+
                         Team
                       </a>
                     </li>
                     <li>
                       <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
-                        </svg>
+
                         Documents
                       </a>
                     </li>
@@ -313,10 +322,12 @@
                         currentState = 'disasters'; 
                       }}
                     >
-                      <svg class="h-6 w-6 shrink-0 {currentState === 'disasters' ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'}" 
-                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                      </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                    
+
                       Disaster Areas
                     </a>
                   </li>
@@ -331,11 +342,32 @@
                         currentState = 'heatmap'; 
                       }}
                     >
-                      <svg class="h-6 w-6 shrink-0 {currentState === 'heatmap' ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'}" 
-                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                      </svg>
-                      Heatmap
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                    </svg>
+
+                      ML Damage Assessment Heatmap
+                    </a>
+                  </li>
+
+                  <li>
+                    <a 
+                      href="#" 
+                      class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 
+                        {currentState === '3Dmap' ? 'bg-gray-200 text-indigo-600' : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
+                      on:click={(e) => { 
+                        e.preventDefault(); 
+                        currentState = '3Dmap'; 
+                      }}
+                    >
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6" />
+                    </svg>
+                    
+                    
+
+                      Street Level Map
                     </a>
                   </li>
                   
@@ -361,29 +393,43 @@
               </ul>
             </li>
             <li>
-              <div class="text-xs font-semibold leading-6 text-gray-400">Saved Locations</div>
+              <div class="text-xs font-semibold leading-6 text-gray-400">More Actions</div>
               <ul role="list" class="-mx-2 mt-2 space-y-1">
                 <li>
-                  <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-                  <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
-                    <button on:click={() => handleMapClick('New York')}>New York</button>
+                  <a
+                    href="#"
+                    class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                    on:click|preventDefault={openModal}
+                  >
+                    <span
+                      class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600"
+                    >
+                      +
+                    </span>
+                    <button>Add a Post</button>
                   </a>
                 </li>
-                <li>
-                    <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-                    <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
-                      <span class="truncate">Chengdu</span>
-                    </a>
-                  </li>
-                  <li>
-                    <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-                    <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600">H</span>
-                      <span class="truncate">Mumbai</span>
-                    </a>
-                  </li>
+                <div class="flex justify-center mx-2 mt-3">
+                  <button 
+                    type="button" 
+                    class="block w-full max-w-xs rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    <div class="flex flex-col items-center space-y-2">
+                      <img 
+                        src="/m_logo.png" 
+                        alt="Donation Icon" 
+
+                      />
+                      <span class="block text-sm font-semibold text-gray-900">
+                        Create a donation endpoint
+                      </span>
+                    </div>
+                  </button>
+                </div>
+                
+                
+                
+                
               </ul>
             </li>
             <li class="-mx-6 mt-auto">
@@ -428,9 +474,15 @@
           <div class="relative h-full w-full">
               {#if currentState == 'stats'}
                 <Statistics {posts}></Statistics>
+              {:else if currentState == '3Dmap'}
+                <StreetLevelMap {posts} {accessToken} onFilterPosts={handleFilteredPosts}></StreetLevelMap>
+              {:else if currentState == 'heatmap'}
+                <Heatmap {posts}></Heatmap>
               {:else}
                 <MapboxMap {posts} {accessToken} onFilterPosts={handleFilteredPosts} />
               {/if}
+              <AddPostModal open={openAddPostModal} onSave={savePost} onClose={closeModal} />
+
           </div>
         </div>
       </div>
@@ -438,6 +490,7 @@
   
     <aside class="fixed inset-y-0 left-72 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
       <Userlist {posts} {selectedPost} />
+
     </aside>
 
   </div>
