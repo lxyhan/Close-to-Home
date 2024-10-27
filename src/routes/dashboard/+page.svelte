@@ -1,8 +1,11 @@
 <script>
   import MapboxMap from "../../components/MapboxMap.svelte";
+	import Statistics from "../../components/Statistics.svelte";
   import Userlist from "../../components/Userlist.svelte";
+  
+  let currentState = 'map'; // Track if statistics modal is active
 
-  export let username = 'John Doe';
+  export let username = 'James Han';
 
   function logout() {
     console.log('Logging out...');
@@ -13,24 +16,134 @@
 
   const posts = [
   {
-    title: 'Flooding in New York',
-    slug: 'flooding-in-new-york', // Ensure each post has a unique slug
-    content: 'Severe flooding in downtown New York...',
-    profileImage: '/banner1.jpg',
-    postImage: '/banner1.jpg',
-    name: 'John Doe'
+    title: 'Severe Flooding in New York City',
+    slug: 'flooding-in-new-york',
+    content:
+      'Unprecedented flooding in Lower Manhattan has led to the evacuation of several neighborhoods. The subway system is halted, and rescue operations are underway. Please avoid the area and call 311 for non-emergency inquiries.',
+    postImage: '/banner4.jpg',
+    profileImage: '/pfp1.png',
+    name: 'John Doe',
+    location: 'New York, NY, USA',
+    category: 'Flooding',
+    reportedTime: '2 hours ago',
+    status: 'Ongoing',
+    emergencyContacts: ['311', 'NYC OEM'],
+    lat: 40.7128, // New York City latitude
+    lng: -74.0060, // New York City longitude
   },
   {
-    title: 'San Francisco Earthquake',
-    slug: 'san-francisco-earthquake',
-    content: 'A major earthquake hit San Francisco...',
-    profileImage: '/banner1.jpg',
+    title: 'California Wildfire Spreading Rapidly',
+    slug: 'california-wildfire-spreading-rapidly',
+    content:
+      'A wildfire near San Bernardino has grown to over 10,000 acres. Evacuation orders are in effect for surrounding areas. Air quality is poor across the region, and residents are urged to stay indoors.',
     postImage: '/banner1.jpg',
-    name: 'Jane Smith'
+    profileImage: '/pfp2.png',
+    name: 'Jane Smith',
+    location: 'San Bernardino, CA, USA',
+    category: 'Wildfire',
+    reportedTime: '1 hour ago',
+    status: 'Evacuations Ongoing',
+    emergencyContacts: ['911', 'Cal Fire'],
+    lat: 34.1083, // San Bernardino latitude
+    lng: -117.2898, // San Bernardino longitude
+  },
+  {
+    title: 'Hurricane Laura Makes Landfall',
+    slug: 'hurricane-laura-makes-landfall',
+    content:
+      'Hurricane Laura has hit Louisiana as a Category 4 storm, with winds exceeding 150 mph. Power outages have been reported in Lake Charles and nearby cities. Stay sheltered and avoid all unnecessary travel.',
+    postImage: '/banner4.jpg',
+    profileImage: '/pfp3.png',
+    name: 'Emily Johnson',
+    location: 'Lake Charles, LA, USA',
+    category: 'Hurricane',
+    reportedTime: '3 hours ago',
+    status: 'Critical',
+    emergencyContacts: ['911', 'FEMA'],
+    lat: 30.2266, // Lake Charles latitude
+    lng: -93.2174, // Lake Charles longitude
+  },
+  {
+    title: 'Earthquake Hits Southern Japan',
+    slug: 'earthquake-hits-southern-japan',
+    content:
+      'A magnitude 6.8 earthquake shook the southern islands of Japan. Aftershocks continue to be felt in the region, and tsunami warnings have been issued. No major casualties reported yet, but infrastructure damage is significant.',
+    postImage: '/banner3.jpg',
+    profileImage: '/pfp4.png',
+    name: 'Hideo Takahashi',
+    location: 'Kyushu, Japan',
+    category: 'Earthquake',
+    reportedTime: '30 minutes ago',
+    status: 'Monitoring Aftershocks',
+    emergencyContacts: ['119', 'Japan Meteorological Agency'],
+    lat: 32.7503, // Kyushu latitude
+    lng: 130.7417, // Kyushu longitude
+  },
+  {
+    title: 'Tornado in Oklahoma Destroys Homes',
+    slug: 'tornado-in-oklahoma-destroys-homes',
+    content:
+      'A large tornado has touched down in Moore, Oklahoma, destroying several homes and vehicles. Emergency responders are on the scene, and residents are being advised to take shelter immediately.',
+    postImage: '/banner4.jpg',
+    profileImage: '/pfp3.png',
+    name: 'Mike Andrews',
+    location: 'Moore, OK, USA',
+    category: 'Tornado',
+    reportedTime: '45 minutes ago',
+    status: 'First Responders on Site',
+    emergencyContacts: ['911', 'American Red Cross'],
+    lat: 35.3395, // Moore latitude
+    lng: -97.4867, // Moore longitude
+  },
+  {
+    title: 'Massive Landslide in Northern India',
+    slug: 'massive-landslide-in-northern-india',
+    content:
+      'A major landslide in the Himalayan region has blocked roads and caused multiple injuries. Rescue teams are struggling to reach remote villages affected by the landslide. Helicopters have been deployed for rescue.',
+    postImage: '/banner3.jpg',
+    profileImage: '/pfp2.png',
+    name: 'Ravi Kumar',
+    location: 'Himachal Pradesh, India',
+    category: 'Landslide',
+    reportedTime: '1 hour ago',
+    status: 'Rescue Operations Underway',
+    emergencyContacts: ['108', 'Disaster Management Authority'],
+    lat: 31.1048, // Himachal Pradesh latitude
+    lng: 77.1734, // Himachal Pradesh longitude
+  },
+  {
+    title: 'Heatwave in Spain Leads to Health Alerts',
+    slug: 'heatwave-in-spain-leads-to-health-alerts',
+    content:
+      'Spain is experiencing an extreme heatwave, with temperatures exceeding 45°C (113°F). Health authorities have issued alerts, urging residents to stay hydrated and avoid outdoor activities during peak hours.',
+    postImage: '/banner2.jpg',
+    profileImage: '/pfp1.png',
+    name: 'Carlos Martinez',
+    location: 'Seville, Spain',
+    category: 'Heatwave',
+    reportedTime: '2 days ago',
+    status: 'Health Alert Issued',
+    emergencyContacts: ['112', 'Spanish Red Cross'],
+    lat: 37.3891, // Seville latitude
+    lng: -5.9845, // Seville longitude
+  },
+  {
+    title: 'Flash Floods in the Philippines',
+    slug: 'flash-floods-in-the-philippines',
+    content:
+      'Heavy rainfall has caused flash floods across Manila, submerging roads and disrupting transportation. Evacuation centers are being set up, and residents are advised to move to higher ground.',
+    postImage: '/banner1.jpg',
+    profileImage: '/pfp2.png',
+    name: 'Alyssa Reyes',
+    location: 'Manila, Philippines',
+    category: 'Flash Flood',
+    reportedTime: '4 hours ago',
+    status: 'Evacuations in Progress',
+    emergencyContacts: ['911', 'Philippine Red Cross'],
+    lat: 14.5995, // Manila latitude
+    lng: 120.9842, // Manila longitude
   }
 ];
-
-
 
 
   let filteredPosts = [...posts]; // Default: show all posts
@@ -191,29 +304,58 @@
             <li>
               <ul role="list" class="-mx-2 space-y-1">
                 <li>
-                  <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
-                  <a href="#" class="group flex gap-x-3 rounded-md bg-gray-50 p-2 text-sm font-semibold leading-6 text-indigo-600">
-                    <svg class="h-6 w-6 shrink-0 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                    </svg>
-                    Disaster Areas
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                    <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                    </svg>
-                    Heatmap
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                    <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-                    </svg>
-                    Statistics
-                  </a>
+                    <a 
+                      href="#" 
+                      class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 
+                        {currentState === 'disasters' ? 'bg-gray-200 text-indigo-600' : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
+                      on:click={(e) => { 
+                        e.preventDefault(); 
+                        currentState = 'disasters'; 
+                      }}
+                    >
+                      <svg class="h-6 w-6 shrink-0 {currentState === 'disasters' ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'}" 
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                      </svg>
+                      Disaster Areas
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a 
+                      href="#" 
+                      class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 
+                        {currentState === 'heatmap' ? 'bg-gray-200 text-indigo-600' : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
+                      on:click={(e) => { 
+                        e.preventDefault(); 
+                        currentState = 'heatmap'; 
+                      }}
+                    >
+                      <svg class="h-6 w-6 shrink-0 {currentState === 'heatmap' ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'}" 
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                      </svg>
+                      Heatmap
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a 
+                      href="#" 
+                      class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 
+                        {currentState === 'stats' ? 'bg-gray-200 text-indigo-600' : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
+                      on:click={(e) => { 
+                        e.preventDefault(); 
+                        currentState = 'stats'; 
+                      }}
+                    >
+                      <svg class="h-6 w-6 shrink-0 {currentState === 'stats' ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'}" 
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                      </svg>
+                      Statistics
+                    </a>
                 </li>
 
               </ul>
@@ -249,11 +391,12 @@
                   class="flex w-full items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
                   on:click={() => logout()}
                 >
-                  <img 
-                    class="h-8 w-8 rounded-full bg-gray-50" 
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
-                    alt={username}
-                  />
+                <img 
+                class="h-8 w-8 rounded-full bg-gray-50 object-cover" 
+                src="/IMG_9453.jpg" 
+                alt={username}
+              />
+              
                   <span class="sr-only">Your profile</span>
                   <span aria-hidden="true">{username}</span>
                 </button>
@@ -283,7 +426,11 @@
         <div class="px-4 py-10 sm:px-6 lg:px-8 lg:py-6 h-full">
           <!-- Main area -->
           <div class="relative h-full w-full">
-            <MapboxMap {posts} {accessToken} onFilterPosts={handleFilteredPosts} />
+              {#if currentState == 'stats'}
+                <Statistics {posts}></Statistics>
+              {:else}
+                <MapboxMap {posts} {accessToken} onFilterPosts={handleFilteredPosts} />
+              {/if}
           </div>
         </div>
       </div>
